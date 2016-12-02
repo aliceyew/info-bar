@@ -14,7 +14,7 @@ var express = require('express');
 
 // cfenv provides access to your Cloud Foundry environment
 // for more info, see: https://www.npmjs.com/package/cfenv
-//var cfenv = require('cfenv');
+var cfenv = require('cfenv');
 var fs = require('fs');
 var options = {
 	key: fs.readFileSync('fake-keys/privatekey.pem'),
@@ -33,7 +33,7 @@ app.use(express.static(__dirname + '/public'));
 
 //var io = require("socket.io")(http);
 // get the app environment from Cloud Foundry
-//var appEnv = cfenv.getAppEnv();
+var appEnv = cfenv.getAppEnv();
 var host = (process.env.VCAP_APP_HOST || 'localhost');
 var port = (process.env.CVAP_APP_PORT || 3001);
 // start server on the specified port and binding host

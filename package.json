@@ -8,7 +8,8 @@
   "dependencies": {
     "cfenv": "1.0.x",
     "express": "4.13.x",
-    "ng-simple-webrtc": "file:node_modules\\ng-simple-webrtc"
+    "ng-simple-webrtc": "file:node_modules\\ng-simple-webrtc",
+    "socket.io": "^1.7.1"
   },
   "repository": {},
   "engines": {

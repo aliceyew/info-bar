@@ -35,7 +35,7 @@ app.use(express.static(__dirname + '/public'));
 // get the app environment from Cloud Foundry
 var appEnv = cfenv.getAppEnv();
 var host = (process.env.VCAP_APP_HOST || 'localhost');
-var port = (process.env.CVAP_APP_PORT || 3001);
+var port = (process.env.VCAP_APP_PORT || 3001);
 // start server on the specified port and binding host
 var server = app.listen(port, host, function() {
 	console.log("Server starting on" + host + ":" + port);

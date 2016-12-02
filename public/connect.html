@@ -84,8 +84,8 @@
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="/node_modules/angular/angular.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="/js/angular.min.js"></script>
     <script src="https://rtcmulticonnection.herokuapp.com/dist/RTCMultiConnection.min.js"></script>
     <script src="https://rtcmulticonnection.herokuapp.com/socket.io/socket.io.js"></script>
     <h2>Company profile pic/details</h2>
@@ -120,7 +120,7 @@
     <script>
             document.getElementById('btn-open-room').onclick = function() {
             disableInputButtons();
-            connection.open(docment.getElementById('room-id').value, function() {
+            connection.open(document.getElementById('room-id').value, function() {
                 showRoomURL(connection.sessionid);
             });
         };

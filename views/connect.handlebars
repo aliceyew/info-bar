@@ -1,0 +1,72 @@
+<link rel="stylesheet" href="/css/custom/connect.css" type="text/css">
+
+<!-- Page Heading/Breadcrumbs -->
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Connect with xxx company
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="dashboard.html">Home</a>
+            </li>
+            <li class="active">Connect</li>
+        </ol>
+    </div>
+</div>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="/js/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/angular.min.js"></script>
+<script src="https://rtcmulticonnection.herokuapp.com/dist/RTCMultiConnection.min.js"></script>
+<script src="https://rtcmulticonnection.herokuapp.com/socket.io/socket.io.js"></script>
+<!-- make a container here for the company profile pic/details -->
+<center><h2><b>COMPANY NAME</b></h2></center>
+<!-- for the pic -->
+<div class="row">
+    <div class="col-md-3">
+        <a href="portfolio-item.html">
+            <img src="http://placehold.it/250x250" class="img-rounded" alt="">
+        </a>
+    </div>
+    <div class="col-md-9">
+        <h3>Company Details</h3>
+        <h4>ipsum lorem bla bla bla need to use angular</h4>
+        <h4>Broadcasting time: Saturday @ 2pm</h4>
+    </div>
+</div>
+<hr>
+<!-- end container for company profile -->
+<!-- End company profile -->
+<section class ="chat">
+    <div class="make-center">
+        <input type="text" id="room-id" value="abcdef">
+        <button class="btn btn-success" id="btn-open-room">Open Room</button>
+        <button class="btn btn-success" id="btn-join-room">Join Room </button>
+        <br>
+    <!--
+    <input type="text" id="input-text-chat" placeholder="Text Chat here" disabled>
+    <br><br>
+    <button id ="btn-leave-room" disabled>Leave or close the room</button>
+-->
+<div id="room-urls" style="text-align: center;display: none;background: #F1EDED;margin: 15px -10px;border: 1px solid rgb(189, 189, 189);border-left: 0;border-right: 0;"></div>
+</div>
+<div id ="chat-container">
+    <div id ="file-container"></div>
+    <div class="chat-output"></div>
+</div>
+
+<div id ="videos-container"></div>
+</section>
+
+<!-- layout for html5 audio/video elements -->
+<script src ="https://cdn.webrtc-experiment.com/getMediaElement.js"></script>
+<script src="https://cdn.webrtc-experiment.com:443/FileBufferReader.js"></script>
+<hr>
+<center>
+    <input type="text" id="input-text-chat" placeholder="Text Chat here" disabled>
+    <br><br>
+    <button class="btn btn-danger" id ="btn-leave-room" disabled>Leave or close the room</button>
+</center>
+<script type="text/javascript" src="connectController.js"></script>  
+

@@ -35,13 +35,21 @@ var options = {
 	cert: fs.readFileSync('fake-keys/certificate.pem')
 };
 
+// INIT APP //
+var app = express();
+
 // Set routes
-var routes = require('./routes/index');
-var users = require('./routes/users');
+var routeUsers = require('./routes/users'); // login route
+var routeDashboard = require('./routes/dashboard');
+
+// Map routes
+app.use('/', routeUsers);
+app.use('/users', routeUsers);
+app.use('/dashboard', routeDashboard);
 
 // Set view folder & engine
 app.set('views', path.join(__dirname, 'views')); 
-app.engine('handlebars', exphbs({defaultLayout:'layout'}));
+app.engine('handlebars', exphbs({defaultLayout:'baseLayout'}));
 app.set('view engine', 'handlebars');
 
 // BodyParser middleware
@@ -81,7 +89,7 @@ app.use(expressValidator({
 	}
 }));
 
-// Use flash middleware
+// TODO: Might remove flash. Use flash middleware
 app.use(flash());
 
 // TODO: Might remove flash. Global vars for flash messages
@@ -96,7 +104,6 @@ app.use(function (req, res, next) {
 
 // Create a new express server
 http = require("https");
-var app = express();
 var server = http.createServer(options, app);
 
 // Socket IOs

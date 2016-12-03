@@ -5,14 +5,14 @@ var LocalStrategy = require('passport-local').Strategy;
 
 var User = require('../models/user');
 
-// Get register page
-router.get('/register', function(req, res) {
-	res.render('register');
+// Get login page
+router.get('/', function(req, res) {
+	res.render('login', {layout: 'loginLayout'});
 });
 
 // Get login page
 router.get('/login', function(req, res) {
-	res.render('login');
+	res.render('login', {layout: 'loginLayout'});
 });
 
 // Logout

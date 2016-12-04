@@ -97,11 +97,11 @@ connection.onUserIdAlreadyTaken = function(useridAlreadyTaken, yourNewUserId) {
                 }
             };
                     // Name chat code
-                        var chatname = {
-                name: ""
-            };
+                    var chatname = {
+                        name: ""
+                    };
 
-            document.getElementById('nameonchat').onkeyup = function(e) {
+                    document.getElementById('nameonchat').onkeyup = function(e) {
             //console.log("Does this work?");
             if (e.keyCode != 13 ) {
                 return;    
@@ -127,6 +127,7 @@ connection.onUserIdAlreadyTaken = function(useridAlreadyTaken, yourNewUserId) {
                 this.value = '';
             };
             var chatContainer = document.querySelector('.chat-output');
+            chatContainer.scrollTop = 300 + 8;
             function appendDIV(event) {
                 var div = document.createElement('div');
                 div.innerHTML = event.data || event;

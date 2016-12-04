@@ -14,6 +14,9 @@ var UserSchema = mongoose.Schema({
 	},
 	bctime: {
 		type: String
+	},
+	imgsrc: {
+		type:String
 	}
 });
 
@@ -43,4 +46,8 @@ module.exports.comparePassword = function(candidatePassword, hash, callback) {
 		if(err) throw err;
 		callback(null, isMatch);
 	});
+}
+
+module.exports.getAllUsers = function(callback) {
+	User.find({}, callback);
 }

@@ -1,0 +1,89 @@
+<link rel="stylesheet" href="/css/custom/connect.css" type="text/css">
+<!-- Page Content -->
+<div class="container">
+    <!-- Page Heading/Breadcrumbs -->
+    <div class="row">
+        <div class="col-lg-12">
+            {{#if company}}
+            <h1 id="page-header" class="page-header">Connect with <b>{{company.username}}</b></h1>
+            {{else}}
+            <h1 id="page-header" class="page-header">Company 404</h1>
+            {{/if}}
+            <ol class="breadcrumb">
+                <li><a href="dashboard">Home</a>
+                </li>
+                <li class="active">Connect</li>
+            </ol>
+        </div>
+    </div>
+
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="https://rtcmulticonnection.herokuapp.com/dist/RTCMultiConnection.min.js"></script>
+    <script src="https://rtcmulticonnection.herokuapp.com/socket.io/socket.io.js"></script>
+    
+    <!--Container here for the company profile pic/details -->
+    {{#if company}}
+    <center><h2 id="company-name"><b>{{company.username}}</b></h2></center>
+    {{else}}
+    <center><h2 id="company-name"><b>This company has not registered for (i)nfoBar</b></h2></center>
+    {{/if}}
+    <!-- for the pic -->
+    <div class="row">
+        <div class="col-md-3">
+            {{#if company}}
+            <img data-ng-src="{{company.imgsrc}}" width="250" height="250">
+            {{/if}}
+        </div>
+        <div class="col-md-9">
+            {{#if company}}
+            <h3>Company Details</h3>
+            <h4 id="company-details">{{company.details}}</h4>
+            <h3>Broadcasting Time</h3>
+            <h4 id="company-bctime">{{company.bctime}}</h4>
+        </div>
+    </div>
+    <hr>
+    <!-- end container for company profile -->
+    <!-- End company profile -->
+    <section class ="chat">
+        <div class="make-center">
+            <input type="text" id="room-id" value="abcdef">
+            <button class="btn btn-success" id="btn-open-room">Open Room</button>
+            <button class="btn btn-success" id="btn-join-room">Join Room </button>
+            <br>
+    <!--
+    <input type="text" id="input-text-chat" placeholder="Text Chat here" disabled>
+    <br><br>
+    <button id ="btn-leave-room" disabled>Leave or close the room</button>
+-->
+            <div id="room-urls" style="text-align: center;display: none;background: #F1EDED;margin: 15px -10px;border: 1px solid rgb(189, 189, 189);border-left: 0;border-right: 0;"></div>
+        </div>
+        <div id ="chat-container">
+            <div id ="file-container"></div>
+            <div class="chat-output"></div>
+        </div>
+
+        <div id ="videos-container"></div>
+    </section>
+
+    <!-- layout for html5 audio/video elements -->
+    <script src ="https://cdn.webrtc-experiment.com/getMediaElement.js"></script>
+    <script src="https://cdn.webrtc-experiment.com:443/FileBufferReader.js"></script>
+    <hr>
+    <center>
+        <input type="text" id="input-text-chat" placeholder="Text Chat here" disabled>
+        <br><br>
+        <button class="btn btn-danger" id ="btn-leave-room" disabled>Leave or close the room</button>
+    </center>
+    {{/if}}
+
+    <script type="text/javascript" src="/js/controllers/connect.js"></script>  
+
+</div>
+
+<!-- Scripts -->
+<script src='/js/jquery.min.js'></script>
+<script src='/js/angular.min.js'></script>
+<script src='/js/bootstrap.min.js'></script>
+<script src='/js/controllers/nav.js'></script>
+<script src='/js/controllers/profile.js'></script>

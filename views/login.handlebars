@@ -1,0 +1,84 @@
+<link rel="stylesheet" href="/css/custom/login.css">
+<div class="form login" ng-app="loginApp">
+	<ul class="tab-group">
+		<li class="tab active"><a href="#employer">Employer</a></li>
+		<li class="tab"><a href="#employee">Guest</a></li>
+	</ul>
+
+	<div class="tab-content" ng-controller="LoginCtrl">
+		<div id="employer">
+			<h1>Employer Portal</h1>
+			<p style="text-align:center;">Welcome back to (i)nfoBar. Join us on another epic networking adventure today!</p>
+			
+			<div id="login">	
+				<p id="invalidUserMsg1" class="warning" style="display: none; margin: 0px 0px 2px;">Invalid username</p>
+				<div class="field-wrap">
+					<input type="text" placeholder="Company Name" ng-model="user.username"/>
+				</div>
+
+				<p id="invalidPwMsg1" class="warning" style="display: none; margin: 0px 0px 2px;">Invalid password</p>
+				<div class="field-wrap">
+					<input type="password" placeholder="Password" ng-model="user.password"/>
+				</div>
+
+				<button class="button-signin button-block" ng-click="login()">Sign In</button>
+				<button class="button-signup button-block"><a href="#register">Sign Up</a></button>
+			</div> <!-- login -->
+		</div>
+
+		<div id="register">	
+			<h1>Employer Sign Up</h1>
+			<p style="text-align:center;">Join us at (i)nfoBar and share your stories with prospective employees!</p>
+
+			<p id="invalidUserMsg2" class="warning" style="display: none; margin: 0px 0px 2px;">Invalid username</p>
+			<p id="duplicateUserMsg" class="warning" style="display: none; margin: 0px 0px 2px;">Username already exists!</p>
+			<div class="field-wrap">
+				<input type="text" placeholder="Company Name*" ng-model="user.username"/>
+			</div>
+
+			<p id="invalidPwMsg2" class="warning" style="display: none; margin: 0px 0px 2px;">Invalid password</p>
+			<div class="field-wrap">
+				<input type="password" placeholder="Password*" ng-model="user.password"/>
+			</div>
+
+			<p style="margin: 0px 0px 2px;">When would you like to hold your broadcast?</p>
+			<div class="field-wrap">
+				<input type="text" placeholder="Broadcasting time (optional)" ng-model="user.bctime"/>
+			</div>
+
+			<p style="margin: 0px 0px 2px;">Is there anything that you'd like to share with everyone else?</p>
+			<div class="field-wrap">
+				<input type="text" placeholder="Company details (optional)" ng-model="user.details"/>
+			</div>
+
+			<p style="margin: 0px 0px 2px;">Would you like to upload a profile picture? <em>(Please upload a link to the picture)</em> </p>
+			<div class="field-wrap">
+				<input type="text" placeholder="Company profile picture link (optional)" ng-model="user.imgsrc"/>
+			</div>
+
+			<p id="registerSuccessMsg" class="success" style="text-align:center; display: none; margin: 0px 0px 2px;">You have successfully registered for (i)nfoBar. Select the "Employer" tab to login.</p>
+			<button class="button-signup button-block" ng-click="register()">Sign Up</button>
+		</div> <!-- register-->
+ 
+		<div id="employee">
+			<h1>Guest Portal</h1>
+			<h3>What is (i)nfoBar?</h2>
+			<p>We are an online platform that connects jobseekers to companies and vice-versa 
+				by providing both parties online video chatrooms. </p>
+			<h3>Our mission</h2>
+			<p>Our aim is to provide both jobseekers and employers an opportunity to better
+				understand each other through borderless communication.</p>
+			<h3>What are you waiting for?</h2>
+			<p>Learn more about your prospective employer! Interact with recruiters 
+				over live streams! Evaluate your culture fit! All here on (i)nfoBar
+				 - <em>the window to your future workplace.</em></p>
+			<button class="button-signin button-block" ng-click="home()">Take me to (i)nfoBar!</button>
+		</div>
+
+	</div><!-- tab-content -->
+
+</div> <!-- /form -->
+
+<script src='/js/jquery.min.js'></script>
+<script src='/js/angular.min.js'></script>
+<script src="/js/controllers/login.js"></script>

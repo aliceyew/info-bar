@@ -18,9 +18,9 @@ router.get('/login', function(req, res) {
 // Logout
 router.get('/logout', function(req, res) {
 	req.logout();
-	res.send({
+	return res.send({
 		success: true,
-		message: 'User successfully logged out'
+		message: 'You have successfully logged out.'
 	});
 })
 
@@ -29,11 +29,13 @@ router.post('/register', function(req, res) {
 	var username = req.body.username;
 	var password = req.body.password;
 	var details = req.body.details;
+	var bctime = req.body.bctime;
 
 	var newUser = new User({
 		username: username,
 		password: password,
-		details: details
+		details: details,
+		bctime: bctime
 	})
 
 	User.createUser(newUser, function(err, user) {

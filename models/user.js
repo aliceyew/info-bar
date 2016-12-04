@@ -11,6 +11,9 @@ var UserSchema = mongoose.Schema({
 	},
 	details: {
 		type: String
+	},
+	bctime: {
+		type: String
 	}
 });
 

@@ -2,19 +2,12 @@ var express = require('express');
 var router = express.Router();
 
 // Get contact
-router.get('/', ensureAuthenticated, function(req, res) {
-	res.render('contact');
-});
-
-function ensureAuthenticated(req, res, next) {
-	if(req.isAuthenticated()) {
-		console.log(req.user.username); // To get user information
-		return next();
+router.get('/', function(req, res) {
+	if (req.isAuthenticated()) {
+		res.render('contact', { user: req.user.username });
 	} else {
-		res.send({
-			message: "You are not logged in."
-		})
+		res.render('contact');
 	}
-}
+});
 
 module.exports = router;

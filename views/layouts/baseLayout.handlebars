@@ -32,8 +32,15 @@
 				<a class="navbar-brand" href="dashboard">Home</a>
 			</div>
 			<!-- Collect the nav links, forms, and other content for toggling -->
-			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" ng-app="logoutApp" >
 				<ul class="nav navbar-nav navbar-right">
+					<li>
+						{{#if user}}
+						<a href="">Welcome, {{ user }}</a>
+						{{else}}
+						<a href="">Welcome, Guest</a>
+						{{/if}}
+					</li>
 					<li id="nav_about">
 						<a href="about">About</a>
 					</li>
@@ -42,6 +49,14 @@
 					</li>
 					<li id="nav_connect">
 						<a href="connect">Connect</a>
+					</li>
+					<li ng-controller="LogoutCtrl">
+						{{#if user}}
+						<!-- todo fix this. i think a controller is needed -->
+						<a href="" ng-click="logout()">Sign out</a>
+						{{else}}
+						<a href="/">Sign in</a>
+						{{/if}}
 					</li>
 				</ul>
 			</div>
@@ -63,4 +78,5 @@
 	</footer>
 </body>
 
+<script src='/js/controllers/logout.js'></script>
 </html>

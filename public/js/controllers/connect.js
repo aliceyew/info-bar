@@ -49,6 +49,7 @@ connection.onmessage = appendDIV;
 connection.onopen = function() {
     document.getElementById('input-text-chat').disabled = false;
     document.getElementById('btn-leave-room').disabled = false;
+    document.getElementById('nameonchat').disabled = false;
     console.log("You are connected with: " + connection.getAllParticipants().join(', '));
 };
 connection.onclose = function() {
@@ -60,6 +61,7 @@ connection.onclose = function() {
 };
 connection.onEntireSessionClosed = function(event) {
     document.getElementById('input-text-chat').disabled = true;
+    document.getElementById('nameonchat').disabled = true;
     document.getElementById('btn-leave-room').disabled = true;
     document.getElementById('btn-open-room').disabled = false;
     document.getElementById('btn-join-room').disabled = false;
@@ -94,14 +96,34 @@ connection.onUserIdAlreadyTaken = function(useridAlreadyTaken, yourNewUserId) {
                     connection.leave();
                 }
             };
+                    // Name chat code
+                        var chatname = {
+                name: ""
+            };
+
+            document.getElementById('nameonchat').onkeyup = function(e) {
+            //console.log("Does this work?");
+            if (e.keyCode != 13 ) {
+                return;    
+            } 
+            // remove trailing/ leading whitespace
+            this.value = this.value.replace(/^\s+|\s+$/g, '');
+            if (!this.value.length) return;
+            chatname.name = this.value;
+            var afterchatname = ": ";
+            chatname.name = chatname.name.concat(afterchatname);
+            chatname.name = chatname.name.bold();
+            console.log(chatname.name);
+        };
             // Text chat code
             document.getElementById('input-text-chat').onkeyup = function(e) {
                 if (e.keyCode != 13) return;
                 // remove trailing/ leading whitespace
                 this.value = this.value.replace(/^\s+|\s+$/g, '');
                 if (!this.value.length) return;
-                connection.send(this.value);
-                appendDIV(this.value);
+                var ans = chatname.name.concat(this.value);
+                connection.send(ans);
+                appendDIV(ans);
                 this.value = '';
             };
             var chatContainer = document.querySelector('.chat-output');
@@ -112,6 +134,7 @@ connection.onUserIdAlreadyTaken = function(useridAlreadyTaken, yourNewUserId) {
                 div.tabIndex = 0;
                 div.focus();
                 document.getElementById('input-text-chat').focus();
+                document.getElementById('nameonchat').focus();
             }
 
             // Handling room id

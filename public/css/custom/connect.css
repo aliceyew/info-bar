@@ -23,6 +23,6 @@ select {
     text-align: left;
     background:#fff;
     border: 1px solid #ACD8F0;
-    width: 800px;
+    width: 100%;
     height: 200px;
 }

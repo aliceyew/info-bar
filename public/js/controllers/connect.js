@@ -49,13 +49,13 @@ connection.onmessage = appendDIV;
 connection.onopen = function() {
     document.getElementById('input-text-chat').disabled = false;
     document.getElementById('btn-leave-room').disabled = false;
-    document.querySelector('h5').innerHTML = 'You are connected with: ' + connection.getAllParticipants().join(', ');
+    console.log("You are connected with: " + connection.getAllParticipants().join(', '));
 };
 connection.onclose = function() {
     if(connection.getAllParticipants().length) {
-        document.querySelector('h5').innerHTML = 'You are still connected with: ' + connection.getAllParticipants().join(', ');
+        console.log('You are still connected with: ' + connection.getAllParticipants().join(', '));
     } else {
-        document.querySelector('h5').innerHTML = 'Seems session has been closed or all participants left.';
+        console.log('Seems session has been closed or all participants left.');
     }
 };
 connection.onEntireSessionClosed = function(event) {

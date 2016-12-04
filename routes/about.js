@@ -1,9 +1,9 @@
 var express = require('express');
 var router = express.Router();
 
-// Get homepage
+// Get contact
 router.get('/', ensureAuthenticated, function(req, res) {
-	res.render('dashboard');
+	res.render('about');
 });
 
 function ensureAuthenticated(req, res, next) {

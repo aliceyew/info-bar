@@ -39,13 +39,12 @@ var options = {
 var app = express();
 
 // Set routes
+var routeMain = require('./routes/main');
 var routeUsers = require('./routes/users'); // login route
 var routeDashboard = require('./routes/dashboard');
-
-// Map routes
-app.use('/', routeUsers);
-app.use('/users', routeUsers);
-app.use('/dashboard', routeDashboard);
+var routeConnect = require('./routes/connect');
+var routeContact = require('./routes/contact');
+var routeAbout = require('./routes/about');
 
 // Set view folder & engine
 app.set('views', path.join(__dirname, 'views')); 
@@ -101,6 +100,14 @@ app.use(function (req, res, next) {
 	res.locals.user = req.user || null;
 	next();
 });
+
+// Map routes
+app.use('/', routeMain);
+app.use('/users', routeUsers);
+app.use('/dashboard', routeDashboard);
+app.use('/contact', routeContact);
+app.use('/connect', routeConnect);
+app.use('/about', routeAbout);
 
 // Create a new express server
 http = require("https");

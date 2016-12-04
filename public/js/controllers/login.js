@@ -10,10 +10,10 @@ var DUPLICATE_USER = 6;
 
 //// Button handlers
 loginApp.controller('LoginCtrl', ['$window', '$location', '$scope', '$http', 
-  function($window, $location, $scope, $http) {
-  
+  function($window, $location, $scope, $http) {  
   // Handle login
   $scope.login = function() {
+
     // Clear and check validity
     clearInvalidMsgs(FORM_LOGIN);
     if (!isValid($scope.user, FORM_LOGIN)) {
@@ -27,6 +27,7 @@ loginApp.controller('LoginCtrl', ['$window', '$location', '$scope', '$http',
     function successCallback(response) {
       // Fail login
       if (!response.data.success) {
+        console.log(response.data.message);
         if (response.data.message === "Unknown user") {
           showMsgInvalid(EMPTY_NAME, FORM_LOGIN);
         } else {
@@ -39,7 +40,6 @@ loginApp.controller('LoginCtrl', ['$window', '$location', '$scope', '$http',
     }
 
     function errorCallback(response) {
-      console.log("Fail: " + response.data);
       console.log(response);
     }
   }
@@ -72,7 +72,7 @@ loginApp.controller('LoginCtrl', ['$window', '$location', '$scope', '$http',
   }
 
   $scope.home = function() {
-    $window.location.href = '/';
+    $window.location.href = '/dashboard';
   }
 
 }]);

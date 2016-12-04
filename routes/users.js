@@ -55,7 +55,7 @@ passport.use(new LocalStrategy(
   function(username, password, done) {
   	User.getUserByUsername(username, function(err, user) {
 		if (err)
-			console.log(err);
+			console.log("Error: " + err);
 		if (!user) {
   			return done(null, false, {
   				success: false,
@@ -65,7 +65,7 @@ passport.use(new LocalStrategy(
 
 		User.comparePassword(password, user.password, function(err, isMatch) {
 			if (err)
-				console.log(err);
+				console.log("Error: " + err);
 			if (isMatch)  {
 				return done(null, user);
 			} else {

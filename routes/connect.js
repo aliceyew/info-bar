@@ -1,9 +1,9 @@
 var express = require('express');
 var router = express.Router();
 
-// Get homepage
+// Get connect
 router.get('/', ensureAuthenticated, function(req, res) {
-	res.render('dashboard');
+	res.render('connect');
 });
 
 function ensureAuthenticated(req, res, next) {

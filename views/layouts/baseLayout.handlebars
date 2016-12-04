@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="dashboardApp">
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -32,13 +32,13 @@
 				<a class="navbar-brand" href="dashboard">Home</a>
 			</div>
 			<!-- Collect the nav links, forms, and other content for toggling -->
-			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" ng-app="logoutApp" >
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav navbar-right">
 					<li>
 						{{#if user}}
-						<a href="">Welcome, {{ user }}</a>
+						<a>Welcome, {{ user }}</a>
 						{{else}}
-						<a href="">Welcome, Guest</a>
+						<a>Welcome, Guest</a>
 						{{/if}}
 					</li>
 					<li id="nav_about">
@@ -78,5 +78,5 @@
 	</footer>
 </body>
 
-<script src='/js/controllers/logout.js'></script>
+<script src='/js/controllers/dashboard.js'></script>
 </html>

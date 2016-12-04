@@ -51,6 +51,11 @@
 				<input type="text" placeholder="Company details (optional)" ng-model="user.details"/>
 			</div>
 
+			<p style="margin: 0px 0px 2px;">Would you like to upload a profile picture? <em>(Please upload a link to the picture)</em> </p>
+			<div class="field-wrap">
+				<input type="text" placeholder="Company profile picture link (optional)" ng-model="user.imgsrc"/>
+			</div>
+
 			<p id="registerSuccessMsg" class="success" style="text-align:center; display: none; margin: 0px 0px 2px;">You have successfully registered for (i)nfoBar. Select the "Employer" tab to login.</p>
 			<button class="button-signup button-block" ng-click="register()">Sign Up</button>
 		</div> <!-- register-->

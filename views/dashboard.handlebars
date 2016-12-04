@@ -39,39 +39,26 @@
 </header>
 
 <!-- Page Content -->
-<div class="container">
+<div class="container" ng-controller="DashboardCtrl">
     <!-- Marketing Icons Section -->
     <div class="row">
         <div class="col-lg-12">
             <h1 class="page-header">
-                Most Viewed Companies
+                List of Companies
             </h1>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4" ng-repeat="u in users">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <center><h4>Systems Programming Company</h4></center>
+                    <center><h4>[[u.username]]</h4></center>
                 </div>
                 <div class="panel-body">
-                    <center><img src="https://s11.postimg.org/gh08y6j7n/252main.png" class="img-rounded" alt="252main" width="330" height="236"></center>
-                    <center>Gustavo Rodriguez-Rivera</center><hr>
-                    <center><a href="https://www.cs.purdue.edu/homes/cs252/" target="_blank" class="btn btn-default">Learn More</a></center>
+                    <center><img data-ng-src="[[u.imgsrc]]" width="330" height="236"></center>
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <center><h4>Purdue University</h4></center>
-                </div>
-                <div class="panel-body">
-                    <center><img src="https://s12.postimg.org/8h2yoqh8t/purduemain.png" width="330" height="236"></center>
-                    <center>Purdue University</center><hr>
-                    <center><a href="http://www.purdue.edu/" target="_blank" class="btn btn-default">Learn More</a></center>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
+
+        <!-- <div class="col-md-4">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <center><h4>Felting Company</h4></center>
@@ -118,7 +105,7 @@
                     <center><a href="http://www.cahayateknindo.com/" target="_blank" class="btn btn-default">Learn More</a></center>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
 </div>
 <!-- /.container -->

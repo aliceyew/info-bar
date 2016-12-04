@@ -22,7 +22,7 @@ router.get('/logout', function(req, res) {
 		success: true,
 		message: 'You have successfully logged out.'
 	});
-})
+});
 
 // Register user
 router.post('/register', function(req, res) {

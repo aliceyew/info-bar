@@ -4,7 +4,11 @@
     <!-- Page Heading/Breadcrumbs -->
     <div class="row">
         <div class="col-lg-12">
-            <h1 id="page-header" class="page-header">{{user}}Connect with xxx company</h1>
+            {{#if company}}
+            <h1 id="page-header" class="page-header">Connect with <b>{{company.username}}</b></h1>
+            {{else}}
+            <h1 id="page-header" class="page-header">Company 404</h1>
+            {{/if}}
             <ol class="breadcrumb">
                 <li><a href="dashboard">Home</a>
                 </li>
@@ -18,18 +22,24 @@
     <script src="https://rtcmulticonnection.herokuapp.com/socket.io/socket.io.js"></script>
     
     <!--Container here for the company profile pic/details -->
-    <center><h2 id="company-name"><b>Company name</b></h2></center>
+    {{#if company}}
+    <center><h2 id="company-name"><b>{{company.username}}</b></h2></center>
+    {{else}}
+    <center><h2 id="company-name"><b>This company has not registered for (i)nfoBar</b></h2></center>
+    {{/if}}
     <!-- for the pic -->
     <div class="row">
         <div class="col-md-3">
-            <a href="portfolio-item.html">
-                <img src="http://placehold.it/250x250" class="img-rounded" alt="">
-            </a>
+            {{#if company}}
+            <img data-ng-src="{{company.imgsrc}}" width="250" height="250">
+            {{/if}}
         </div>
         <div class="col-md-9">
+            {{#if company}}
             <h3>Company Details</h3>
-            <h4 id="company-details">ipsum lorem bla bla bla need to use angular</h4>
-            <h4 id="company-bctime">Broadcasting time: Saturday @ 2pm</h4>
+            <h4 id="company-details">{{company.details}}</h4>
+            <h3>Broadcasting Time</h3>
+            <h4 id="company-bctime">{{company.bctime}}</h4>
         </div>
     </div>
     <hr>
@@ -65,6 +75,8 @@
         <br><br>
         <button class="btn btn-danger" id ="btn-leave-room" disabled>Leave or close the room</button>
     </center>
+    {{/if}}
+
     <script type="text/javascript" src="/js/controllers/connect.js"></script>  
 
 </div>

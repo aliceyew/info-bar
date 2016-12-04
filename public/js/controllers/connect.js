@@ -71,7 +71,7 @@ connection.onEntireSessionClosed = function(event) {
     });
 
     if (connection.userid === event.userid) return;
-    document.querySelector('h1').innerHTML = 'Entire session has been closed by the moderator: ' + event.userid;
+    console.log('Entire session has been closed by the moderator: ' + event.userid);
 };
 connection.onUserIdAlreadyTaken = function(useridAlreadyTaken, yourNewUserId) {
                 // seems room is already opened
@@ -89,7 +89,7 @@ connection.onUserIdAlreadyTaken = function(useridAlreadyTaken, yourNewUserId) {
                     // use this method if you did NOT set "autoCloseEntireSession===true"
                     // for more info: https://github.com/muaz-khan/RTCMultiConnection#closeentiresession
                     connection.closeEntireSession(function() {
-                        document.querySelector('h1').innerHTML = 'Entire session has been closed.';
+                        console.log('Entire session has been closed.');
                     });
                 }
                 else {
@@ -101,7 +101,7 @@ connection.onUserIdAlreadyTaken = function(useridAlreadyTaken, yourNewUserId) {
                         name: ""
                     };
 
-                    document.getElementById('nameonchat').onkeyup = function(e) {
+        document.getElementById('nameonchat').onkeyup = function(e) {
             //console.log("Does this work?");
             if (e.keyCode != 13 ) {
                 return;    
@@ -121,7 +121,13 @@ connection.onUserIdAlreadyTaken = function(useridAlreadyTaken, yourNewUserId) {
                 // remove trailing/ leading whitespace
                 this.value = this.value.replace(/^\s+|\s+$/g, '');
                 if (!this.value.length) return;
-                var ans = chatname.name.concat(this.value);
+                chatname.name = document.getElementById('nameonchat').value;
+                console.log(chatname.name);
+                var aftercname = ": ";
+                var anothername = chatname.name.concat(aftercname);
+                anothername = anothername.bold();
+                var ans = anothername.concat(this.value);
+                //var ans = chatname.name.concat(this.value);
                 connection.send(ans);
                 appendDIV(ans);
                 this.value = '';
@@ -135,7 +141,7 @@ connection.onUserIdAlreadyTaken = function(useridAlreadyTaken, yourNewUserId) {
                 div.tabIndex = 0;
                 div.focus();
                 document.getElementById('input-text-chat').focus();
-                document.getElementById('nameonchat').focus();
+                //document.getElementById('nameonchat').focus();
             }
 
             // Handling room id

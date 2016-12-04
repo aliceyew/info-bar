@@ -57,7 +57,9 @@ router.post('/register', function(req, res) {
 
 passport.use(new LocalStrategy(
   function(username, password, done) {
+  	console.log("in local strategy");
   	User.getUserByUsername(username, function(err, user) {
+  		console.log("callback for getUserByUsername");
 		if (err)
 			console.log("Error: " + err);
 		if (!user) {
@@ -94,6 +96,7 @@ passport.deserializeUser(function(id, done) {
 
 router.post('/login', function(req, res, next) {
 	passport.authenticate('local', function(err, user, info) {
+		console.log("authenticating passport");
 		if (err) { 
 			return next(err); 
 		}
@@ -103,6 +106,7 @@ router.post('/login', function(req, res, next) {
 		}
 
 		req.logIn(user, function(err) {
+			console.log("logging in");
 			if (err) {
 				return next(err);
 			}

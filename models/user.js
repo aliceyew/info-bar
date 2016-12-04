@@ -33,8 +33,10 @@ module.exports.createUser = function(newUser, callback) {
 }
 
 module.exports.getUserByUsername = function(username, callback) {
+	console.log("in user models, get user by username");
 	var query = {username: username};
 	User.findOne(query, callback);
+	console.log("after findOne");
 }
 
 module.exports.getUserById = function(id, callback) {

@@ -6,13 +6,13 @@
     "start": "node app.js"
   },
   "dependencies": {
-    "cfenv": "1.0.x",
-    "express": "4.13.x",
-    "socket.io": "^1.7.1",
     "bcryptjs": "*",
     "body-parser": "*",
+    "cfenv": "1.0.x",
     "connect-flash": "*",
     "cookie-parser": "^1.4.1",
+    "cookie-session": "^2.0.0-alpha.2",
+    "express": "4.13.x",
     "express-handlebars": "*",
     "express-messages": "*",
     "express-session": "*",
@@ -21,7 +21,8 @@
     "mongoose": "*",
     "passport": "*",
     "passport-http": "*",
-    "passport-local": "*"
+    "passport-local": "*",
+    "socket.io": "^1.7.1"
   },
   "repository": {},
   "engines": {

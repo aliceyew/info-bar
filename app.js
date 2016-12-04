@@ -16,15 +16,22 @@ var bodyParser = require('body-parser');
 var exphbs = require('express-handlebars');
 var expressValidator = require('express-validator');
 var flash = require('connect-flash');
-var session = require('express-session');
+var session = require('cookie-session');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var mongo = require('mongodb');
 var mongoose = require('mongoose');
 
-// TODO: Need to verify if this works
-mongoose.connect('mongodb://localhost/loginapp');
-var db = mongoose.connection;
+// Connect to mongodb using mongoose
+var db;
+if (process.env.VCAP_SERVICES) {
+	var services = JSON.parse(process.env.VCAP_SERVICES);
+	mongoose.connect(services['mongodb'][0].credentials.url);
+	db = mongoose.connection;
+} else {
+	mongoose.connect('mongodb://localhost/infobar');
+	db = mongoose.connection;
+}
 
 // cfenv provides access to your Cloud Foundry environment
 // For more info, see: https://www.npmjs.com/package/cfenv
@@ -59,10 +66,10 @@ app.use(cookieParser());
 // Serve the files out of ./public as our main files
 app.use(express.static(__dirname + '/public'));
 
-// Express session
 app.use(session({
-	secret: 'secret',
-	saveUninitialized: true,
+    secret: 'secret',
+    cookie: { maxAge: 1000*60*60 },
+    saveUninitialized: true,
 	resave: true
 }));
 

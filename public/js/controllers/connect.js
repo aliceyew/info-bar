@@ -113,6 +113,7 @@ document.getElementById('btn-leave-room').onclick = function() {
     else {
         connection.leave();
     }
+    deleteRoomUrl();
 };
 // Name chat code
 var chatname = {
@@ -140,8 +141,6 @@ document.getElementById('input-text-chat').onkeyup = function(e) {
     this.value = this.value.replace(/^\s+|\s+$/g, '');
     if (!this.value.length) return;
     chatname.name = document.getElementById('nameonchat').value;
-    console.log(chatname.name);
-    console.log("is this going in?");
     var aftercname = ": ";
     var anothername = chatname.name.concat(aftercname);
     anothername = anothername.bold();
@@ -163,49 +162,11 @@ function appendDIV(event) {
     //document.getElementById('nameonchat').focus();
 }
 
-document.getElementById('btn-leave-room').onclick = function() {
-    this.disabled = true;
-    if(connection.isInitiator) {
-        // use this method if you did NOT set "autoCloseEntireSession===true"
-        // for more info: https://github.com/muaz-khan/RTCMultiConnection#closeentiresession
-        connection.closeEntireSession(function() {
-            document.querySelector('h1').innerHTML = 'Entire session has been closed.';
-        });
-    }
-    else {
-        connection.leave();
-    }
-
-    deleteRoomUrl();
-};
-// Text chat code
-/*document.getElementById('input-text-chat').onkeyup = function(e) {
-    if (e.keyCode != 13) return;
-    // remove trailing/ leading whitespace
-    this.value = this.value.replace(/^\s+|\s+$/g, '');
-    if (!this.value.length) return;
-    connection.send(this.value);
-    appendDIV(this.value);
-    this.value = '';
-};
-*/
-var chatContainer = document.querySelector('.chat-output');
-function appendDIV(event) {
-    var div = document.createElement('div');
-    div.innerHTML = event.data || event;
-    chatContainer.insertBefore(div, chatContainer.firstChild);
-    div.tabIndex = 0;
-    div.focus();
-    document.getElementById('input-text-chat').focus();
-}
-
 // Handling room id
 function showRoomURL(roomid) {
     var roomHashURL = '#' + roomid;
     var roomQueryStringURL = '?roomid=' + roomid;
-    var html = '<h2>Unique URL for your room:</h2><br>';
-    html += 'Hash URL: <a href="' + roomHashURL + '" target="_blank">' + roomHashURL + '</a>';
-    html += '<br>';
+    var html = '<h4>Unique URL for your room:</h4>';
     html += 'QueryString URL: <a href="' + roomQueryStringURL + '" target="_blank">' + roomQueryStringURL + '</a>';
     var roomURLsDiv = document.getElementById('room-urls');
     roomURLsDiv.innerHTML = html;

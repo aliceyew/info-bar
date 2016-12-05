@@ -51,6 +51,10 @@ module.exports.comparePassword = function(candidatePassword, hash, callback) {
 	});
 }
 
+module.exports.updateUserDetails = function(id, updatedDetails, callback) {
+	User.findByIdAndUpdate(id, updatedDetails, { new: true }, callback);
+}
+
 module.exports.getAllUsers = function(callback) {
 	User.find({}, callback);
 }

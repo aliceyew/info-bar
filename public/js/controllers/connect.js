@@ -68,8 +68,6 @@ connection.onopen = function() {
     document.getElementById('btn-leave-room').disabled = false;
     document.getElementById('nameonchat').disabled = false;
     console.log("You are connected with: " + connection.getAllParticipants().join(', '));
-
-
 };
 
 connection.onclose = function() {
@@ -77,6 +75,7 @@ connection.onclose = function() {
         console.log('You are still connected with: ' + connection.getAllParticipants().join(', '));
     } else {
         console.log('Seems session has been closed or all participants left.');
+        deleteRoomUrl();
     }
 };
 
@@ -114,11 +113,11 @@ document.getElementById('btn-leave-room').onclick = function() {
         connection.closeEntireSession(function() {
             console.log('Entire session has been closed.');
         });
+        deleteRoomUrl();
     }
     else {
         connection.leave();
     }
-    deleteRoomUrl();
 };
 // Name chat code
 var chatname = {
@@ -257,4 +256,42 @@ function deleteRoomUrl() {
             }
         });
     }
-}   
+}
+
+// Update user details
+function updateUserDetails(newDetails) {
+    $.ajax({
+        url: '/users/updateDetails', 
+        type: 'POST', 
+        contentType: 'application/json', 
+        data: JSON.stringify({
+            updatedDetails: newDetails
+        }),
+        success: function(data) {
+            console.log(data);
+            // Hide save button & show updated message
+            $('#detailsUpdatedMsg').show();
+            $('#btnSaveDetails').hide();
+            // Update img
+            document.getElementById("companyImg").setAttribute('src', newDetails.imgsrc);
+        }
+    });
+}
+
+// Form controls
+$('#companyDetails, #companyImgSrc, #companyBcTime').on('click', function() {
+    $(this).attr("readonly", false);
+    $('#btnSaveDetails').show();
+});
+
+$('#btnSaveDetails').on('click', function() {
+    var details = $('#companyDetails').val();
+    var bctime = $('#companyBcTime').val();
+    var imgsrc = $('#companyImgSrc').val();
+
+    updateUserDetails({
+        details: details,
+        bctime: bctime,
+        imgsrc: imgsrc
+    })
+})

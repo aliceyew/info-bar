@@ -29,17 +29,47 @@
     {{/if}}
     <!-- for the pic -->
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-4">
             {{#if company}}
-            <img src="{{company.imgsrc}}" width="250" height="250">
+            <img id="companyImg" src="{{company.imgsrc}}" width="300" height="300">
             {{/if}}
         </div>
-        <div class="col-md-9">
+        <div class="col-md-8">
             {{#if company}}
-            <h3>Company Details</h3>
-            <h4 id="company-details">{{company.details}}</h4>
-            <h3>Next Video Conference Time</h3>
-            <h4 id="company-bctime">{{company.bctime}}</h4>
+                <h3>Company Details</h3>
+                {{#if isAuthorized}}
+                <!-- Enable edit for company details -->
+                <input type="text" id="companyDetails" value="{{company.details}}" readonly>
+                {{else}}
+                <h4 id="company-details">{{company.details}}</h4>
+                {{/if}}
+                
+                <h3>Next Broadcast</h3>
+                {{#if isAuthorized}}
+                <!-- Enable edit for company broadcasting time -->
+                <input type="text" id="companyBcTime" value="{{company.bctime}}" readonly>
+                {{else}}
+                <h4 id="company-bctime">{{company.bctime}}</h4>
+                {{/if}}
+
+                <!-- Enable edit for company profile picture -->
+                {{#if isAuthorized}}
+                <h3>Profile Picture Link</h3>
+                <input type="text" id="companyImgSrc" value="{{company.imgsrc}}" readonly>
+                {{/if}}
+
+                {{#if isAuthorized}}
+                <div>
+                    <div class="col-md-6">
+                        <button class="btn btn-default pull-right" id="btnSaveDetails" style="display: none;">Save</button>
+                    </div>
+                </div>
+                {{/if}}
+
+                <div>
+                    <br>
+                    <p id="detailsUpdatedMsg" style="display: none;"><em>Details have been updated!</em></p>
+                </div>
         </div>
     </div>
     <hr>
@@ -75,13 +105,12 @@
     <script src ="https://cdn.webrtc-experiment.com/getMediaElement.js"></script>
     <script src="https://cdn.webrtc-experiment.com:443/FileBufferReader.js"></script>
     <hr>
-        {{/if}}
-    <script type="text/javascript" src="/js/controllers/connect.js"></script>  
-
+    {{/if}}
 </div>
 
 <!-- Scripts -->
 <script src='/js/jquery.min.js'></script>
 <script src='/js/angular.min.js'></script>
 <script src='/js/bootstrap.min.js'></script>
+<script src="/js/controllers/connect.js"></script>  
 <script src='/js/controllers/nav.js'></script>

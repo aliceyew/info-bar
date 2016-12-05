@@ -54,6 +54,25 @@ router.post('/register', function(req, res) {
 	});
 });
 
+router.post('/updateDetails', function(req, res) {
+	var id = req.user._id;
+	var updatedDetails = req.body.updatedDetails;
+
+	User.updateUserDetails(id, updatedDetails, function(err, user) {
+		if (err) {
+			return res.send({
+				success: false,
+				message: 'User already exist!'
+			});
+		} else {
+			return res.send({
+				success: true,
+				user: user
+			});
+		}
+	});
+});
+
 passport.use(new LocalStrategy(
   function(username, password, done) {
   	User.getUserByUsername(username, function(err, user) {

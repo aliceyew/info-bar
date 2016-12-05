@@ -39,7 +39,7 @@
 </header>
 
 <!-- Page Content -->
-<div class="container" ng-controller="DashboardCtrl">
+<div class="container" ng-app="dashboardApp" ng-controller="DashboardCtrl">
     <!-- Marketing Icons Section -->
     <div class="row">
         <div class="col-lg-12">
@@ -53,9 +53,18 @@
                     <center><h4>[[u.username]]</h4></center>
                 </div>
                 <div class="panel-body">
-                    <center><img data-ng-src="[[u.imgsrc]]" width="330" height="236"></center>
+                    <center><img data-ng-src="[[u.imgsrc]]" width="330" height="240"></center>
                     <hr>
-                    <center><a a ng-href="/connect/[[u.username]]" class="btn btn-default">Learn More</a></center>
+                    <center>
+                        <span class="btn-group" ng-if="u.roomUrl !== undefined"> 
+                            <a ng-href="/connect/[[u.username]]" class="btn btn-default">Learn More</a>
+                            <a ng-href="[[u.roomUrl]]" class="btn btn-success active">Online</a>
+                        </span>
+                        <span class="btn-group" ng-if="u.roomUrl == undefined">
+                            <a ng-href="/connect/[[u.username]]" class="btn btn-default">Learn More</a>
+                            <button class="btn btn-danger">Offline</button>
+                        </span>
+                    </center>
                 </div>
             </div>
         </div>

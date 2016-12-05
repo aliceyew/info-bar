@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="dashboardApp">
+<html lang="en">
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -47,10 +47,9 @@
 					<li id="nav_contact">
 						<a href="/contact">Contact</a>
 					</li>
-					<li ng-controller="LogoutCtrl">
+					<li>
 						{{#if user}}
-						<!-- todo fix this. i think a controller is needed -->
-						<a href="" ng-click="logout()">Sign out</a>
+						<a href="/users/logout">Sign out</a>
 						{{else}}
 						<a href="/">Sign in</a>
 						{{/if}}

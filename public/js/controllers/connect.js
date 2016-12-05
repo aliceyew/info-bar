@@ -1,8 +1,13 @@
+// Track page unloading
+window.addEventListener("beforeunload", deleteRoomUrl, false); 
 
 document.getElementById('btn-open-room').onclick = function() {
     disableInputButtons();
     connection.open(document.getElementById('room-id').value, function() {
-        showRoomURL(connection.sessionid);
+        // Show room url
+        var chatroomUrl = showRoomURL(connection.sessionid);
+        // Save current chat room url in db
+        saveRoomUrl(chatroomUrl);
     });
 };
 
@@ -51,6 +56,7 @@ connection.onopen = function() {
     document.getElementById('btn-leave-room').disabled = false;
     document.querySelector('h5').innerHTML = 'You are connected with: ' + connection.getAllParticipants().join(', ');
 };
+
 connection.onclose = function() {
     if(connection.getAllParticipants().length) {
         document.querySelector('h5').innerHTML = 'You are still connected with: ' + connection.getAllParticipants().join(', ');
@@ -58,6 +64,7 @@ connection.onclose = function() {
         document.querySelector('h5').innerHTML = 'Seems session has been closed or all participants left.';
     }
 };
+
 connection.onEntireSessionClosed = function(event) {
     document.getElementById('input-text-chat').disabled = true;
     document.getElementById('btn-leave-room').disabled = true;
@@ -70,103 +77,145 @@ connection.onEntireSessionClosed = function(event) {
 
     if (connection.userid === event.userid) return;
     document.querySelector('h1').innerHTML = 'Entire session has been closed by the moderator: ' + event.userid;
+
+    deleteRoomUrl();
 };
 connection.onUserIdAlreadyTaken = function(useridAlreadyTaken, yourNewUserId) {
-                // seems room is already opened
-                connection.join(useridAlreadyTaken);
-            };
-            function disableInputButtons() {
-                document.getElementById('btn-open-room').disabled = true;
-                document.getElementById('btn-join-room').disabled = true;
-                document.getElementById('room-id').disabled = true;
-            };
+    // seems room is already opened
+    connection.join(useridAlreadyTaken);
+};
+function disableInputButtons() {
+    document.getElementById('btn-open-room').disabled = true;
+    document.getElementById('btn-join-room').disabled = true;
+    document.getElementById('room-id').disabled = true;
+};
 
-            document.getElementById('btn-leave-room').onclick = function() {
-                this.disabled = true;
-                if(connection.isInitiator) {
-                    // use this method if you did NOT set "autoCloseEntireSession===true"
-                    // for more info: https://github.com/muaz-khan/RTCMultiConnection#closeentiresession
-                    connection.closeEntireSession(function() {
-                        document.querySelector('h1').innerHTML = 'Entire session has been closed.';
-                    });
-                }
-                else {
-                    connection.leave();
-                }
-            };
-            // Text chat code
-            document.getElementById('input-text-chat').onkeyup = function(e) {
-                if (e.keyCode != 13) return;
-                // remove trailing/ leading whitespace
-                this.value = this.value.replace(/^\s+|\s+$/g, '');
-                if (!this.value.length) return;
-                connection.send(this.value);
-                appendDIV(this.value);
-                this.value = '';
-            };
-            var chatContainer = document.querySelector('.chat-output');
-            function appendDIV(event) {
-                var div = document.createElement('div');
-                div.innerHTML = event.data || event;
-                chatContainer.insertBefore(div, chatContainer.firstChild);
-                div.tabIndex = 0;
-                div.focus();
-                document.getElementById('input-text-chat').focus();
-            }
+document.getElementById('btn-leave-room').onclick = function() {
+    this.disabled = true;
+    if(connection.isInitiator) {
+        // use this method if you did NOT set "autoCloseEntireSession===true"
+        // for more info: https://github.com/muaz-khan/RTCMultiConnection#closeentiresession
+        connection.closeEntireSession(function() {
+            document.querySelector('h1').innerHTML = 'Entire session has been closed.';
+        });
+    }
+    else {
+        connection.leave();
+    }
 
-            // Handling room id
-            function showRoomURL(roomid) {
-                var roomHashURL = '#' + roomid;
-                var roomQueryStringURL = '?roomid=' + roomid;
-                var html = '<h2>Unique URL for your room:</h2><br>';
-                html += 'Hash URL: <a href="' + roomHashURL + '" target="_blank">' + roomHashURL + '</a>';
-                html += '<br>';
-                html += 'QueryString URL: <a href="' + roomQueryStringURL + '" target="_blank">' + roomQueryStringURL + '</a>';
-                var roomURLsDiv = document.getElementById('room-urls');
-                roomURLsDiv.innerHTML = html;
-                roomURLsDiv.style.display = 'block';
+    deleteRoomUrl();
+};
+// Text chat code
+document.getElementById('input-text-chat').onkeyup = function(e) {
+    if (e.keyCode != 13) return;
+    // remove trailing/ leading whitespace
+    this.value = this.value.replace(/^\s+|\s+$/g, '');
+    if (!this.value.length) return;
+    connection.send(this.value);
+    appendDIV(this.value);
+    this.value = '';
+};
+
+var chatContainer = document.querySelector('.chat-output');
+function appendDIV(event) {
+    var div = document.createElement('div');
+    div.innerHTML = event.data || event;
+    chatContainer.insertBefore(div, chatContainer.firstChild);
+    div.tabIndex = 0;
+    div.focus();
+    document.getElementById('input-text-chat').focus();
+}
+
+// Handling room id
+function showRoomURL(roomid) {
+    var roomHashURL = '#' + roomid;
+    var roomQueryStringURL = '?roomid=' + roomid;
+    var html = '<h2>Unique URL for your room:</h2><br>';
+    html += 'Hash URL: <a href="' + roomHashURL + '" target="_blank">' + roomHashURL + '</a>';
+    html += '<br>';
+    html += 'QueryString URL: <a href="' + roomQueryStringURL + '" target="_blank">' + roomQueryStringURL + '</a>';
+    var roomURLsDiv = document.getElementById('room-urls');
+    roomURLsDiv.innerHTML = html;
+    roomURLsDiv.style.display = 'block';
+    return window.location.href + roomQueryStringURL;
+}
+
+(function() {
+    var params = {},
+    r = /([^&=]+)=?([^&]*)/g;
+    function d(s) {
+        return decodeURIComponent(s.replace(/\+/g, ' '));
+    }
+    var match, search = window.location.search;
+    while (match = r.exec(search.substring(1)))
+        params[d(match[1])] = d(match[2]);
+    window.params = params;
+})();
+
+var roomid = '';
+if (localStorage.getItem(connection.socketMessageEvent)) {
+    roomid = localStorage.getItem(connection.socketMessageEvent);
+} else {
+    roomid = connection.token();
+}
+document.getElementById('room-id').value = roomid;
+document.getElementById('room-id').onkeyup = function() {
+    localStorage.setItem(connection.socketMessageEvent, this.value);
+};
+var hashString = location.hash.replace('#', '');
+if(hashString.length && hashString.indexOf('comment-') == 0) {
+    hashString = '';
+}
+var roomid = params.roomid;
+if(!roomid && hashString.length) {
+    roomid = hashString;
+}
+if(roomid && roomid.length) {
+    document.getElementById('room-id').value = roomid;
+    localStorage.setItem(connection.socketMessageEvent, roomid);
+    // auto-join-room
+    (function reCheckRoomPresence() {
+        connection.checkPresence(roomid, function(isRoomExists) {
+            if(isRoomExists) {
+                connection.join(roomid);
+                return;
             }
-            (function() {
-                var params = {},
-                r = /([^&=]+)=?([^&]*)/g;
-                function d(s) {
-                    return decodeURIComponent(s.replace(/\+/g, ' '));
-                }
-                var match, search = window.location.search;
-                while (match = r.exec(search.substring(1)))
-                    params[d(match[1])] = d(match[2]);
-                window.params = params;
-            })();
-            var roomid = '';
-            if (localStorage.getItem(connection.socketMessageEvent)) {
-                roomid = localStorage.getItem(connection.socketMessageEvent);
-            } else {
-                roomid = connection.token();
-            }
-            document.getElementById('room-id').value = roomid;
-            document.getElementById('room-id').onkeyup = function() {
-                localStorage.setItem(connection.socketMessageEvent, this.value);
-            };
-            var hashString = location.hash.replace('#', '');
-            if(hashString.length && hashString.indexOf('comment-') == 0) {
-              hashString = '';
-          }
-          var roomid = params.roomid;
-          if(!roomid && hashString.length) {
-            roomid = hashString;
+            setTimeout(reCheckRoomPresence, 5000);
+        });
+    })();
+    disableInputButtons();
+}
+
+// Save chatroom url to db
+function saveRoomUrl(chatroomUrl) {
+    $.ajax({
+        url: '/connect/createChatroom', 
+        type: 'POST', 
+        contentType: 'application/json', 
+        data: JSON.stringify({
+            roomUrl: chatroomUrl
+        }),
+        success: function(data) {
+            console.log('Save url success:');
+            console.log(JSON.stringify(data));
         }
-        if(roomid && roomid.length) {
-            document.getElementById('room-id').value = roomid;
-            localStorage.setItem(connection.socketMessageEvent, roomid);
-                // auto-join-room
-                (function reCheckRoomPresence() {
-                    connection.checkPresence(roomid, function(isRoomExists) {
-                        if(isRoomExists) {
-                            connection.join(roomid);
-                            return;
-                        }
-                        setTimeout(reCheckRoomPresence, 5000);
-                    });
-                })();
-                disableInputButtons();
+    });
+}
+
+// Delete chatroom url from db
+function deleteRoomUrl() {
+    if (connection.isInitiator) {
+        connection.closeEntireSession(function() {
+            console.log('Entire session has been closed.');
+        });
+        $.ajax({
+            url: '/connect/deleteChatroom', 
+            type: 'POST', 
+            contentType: 'application/json',
+            success: function(data) {
+                console.log('Delete url success:');
+                console.log(JSON.stringify(data));
             }
+        });
+    }
+}   

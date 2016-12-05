@@ -3,7 +3,6 @@ var router = express.Router();
 
 var User = require('../models/user');
 
-// Get connect
 router.get('/', function(req, res) {
 	if (req.isAuthenticated()) {
 		res.render('connect', { user: req.user.username });
@@ -12,6 +11,7 @@ router.get('/', function(req, res) {
 	}
 });
 
+// Dynamic generation of company profile
 router.get('/:company', function(req, res) {
 	var companyName = req.params.company;
 	
@@ -38,9 +38,46 @@ router.get('/:company', function(req, res) {
 	});
 });
 
+// Save chatroom link to db
+router.post('/createChatroom', function(req, res) {
+	var username = req.user.username;
+	var roomUrl = req.body.roomUrl;
 
-router.get('/:name', function(request, response){
-	
+	User.addRoomUrl(username, roomUrl, function(err, user) {
+		if (err) {
+			console.log(err);
+			return res.send({
+				success: false,
+				message: 'There was an issue creating the chatroom!'
+			});
+		} else {
+			return res.send({
+				success: true,
+				user: user				
+			});
+		}
+	});
+});
+
+// Delete chatroom entry from db
+router.post('/deleteChatroom', function(req, res) {
+	if (req.user) {
+		var chatroomUser = req.user.username;
+
+		User.deleteRoomUrl(chatroomUser, function(err, removed) {
+			if (err) {
+				return res.send({
+					success: false,
+					message: 'This user has not created a chatroom!'
+				});
+			} else {
+				return res.send({
+					success: true,
+					removed: removed				
+				});
+			}
+		});
+	}
 });
 
 module.exports = router;

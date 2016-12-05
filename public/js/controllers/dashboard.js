@@ -5,34 +5,20 @@ var dashboardApp = angular.module('dashboardApp', [], function($interpolateProvi
 
 dashboardApp.controller('DashboardCtrl', ['$scope', '$http', 
   function($scope, $http) {
-	  $http.get('/dashboard/allUsers').then(successCallback, errorCallback);
 
-	  function successCallback(response) {
-	  	$scope.users = response.data.users;
-	  }
+    // Get all users
+    (function() {
+      $http.get('/dashboard/allUsers').then(successCallback, errorCallback);
 
-	  function errorCallback(response) {
-	  	console.log(response);
-	  }
-}]);
+      function successCallback(response) {
+        $scope.users = response.data.users;
+        console.log(response.data.users[0].roomLink);
+      }
 
-dashboardApp.controller('LogoutCtrl', ['$window', '$scope', '$http', 
-  function($window, $scope, $http) {  
-  // Handle logout
-  $scope.logout = function() {
-    // Post data
-    $http.get('/users/logout').then(successCallback, errorCallback);
-
-    // Callback functions
-    function successCallback(response) {
-  		console.log(response.data.message);
-    	$window.location.href = '/dashboard';
-    }
-
-    function errorCallback(response) {
-      console.log(response);
-    }
-  }
+      function errorCallback(response) {
+        console.log(response);
+      }
+    })();
 }]);
 
 // Activate carousel

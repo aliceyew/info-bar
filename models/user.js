@@ -16,7 +16,10 @@ var UserSchema = mongoose.Schema({
 		type: String
 	},
 	imgsrc: {
-		type:String
+		type: String
+	},
+	roomUrl: {
+		type: String
 	}
 });
 
@@ -33,10 +36,8 @@ module.exports.createUser = function(newUser, callback) {
 }
 
 module.exports.getUserByUsername = function(username, callback) {
-	console.log("in user models, get user by username");
 	var query = {username: username};
 	User.findOne(query, callback);
-	console.log("after findOne");
 }
 
 module.exports.getUserById = function(id, callback) {
@@ -52,4 +53,16 @@ module.exports.comparePassword = function(candidatePassword, hash, callback) {
 
 module.exports.getAllUsers = function(callback) {
 	User.find({}, callback);
+}
+
+module.exports.addRoomUrl = function(username, roomUrl, callback) {
+	var query = {username: username};
+	var setQuery = {$set: {roomUrl: roomUrl}};
+	User.update(query, setQuery, callback);
+}
+
+module.exports.deleteRoomUrl = function(username, callback) {
+	var query = {username: username};
+	var setQuery = {$unset: {roomUrl: ""}};
+	User.update(query, setQuery, callback);
 }

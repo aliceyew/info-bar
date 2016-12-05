@@ -33,20 +33,20 @@ connection.sdpConstraints.mandatory = {
 var count = 0;
 connection.onstream = function(event) {
     var width = parseInt(connection.videosContainer.clientWidth / 2) - 20;
-    count++; // count was initially 0, so have to increment when new video open
+    //count++; // count was initially 0, so have to increment when new video open
     var mediaElement = getMediaElement(event.mediaElement, {
         title: event.userid,
         buttons: ['full-screen'],
         width: width,
         showonMouseEnter: false
     });
-    if (count == 1) { //first media element
-        mediaElement.style.border = '3px solid red';
-    }
+    //if (count == 1) { //first media element
+    //    mediaElement.style.border = '3px solid red';
+    //}
     connection.videosContainer.appendChild(mediaElement);
 
-    //if (connection.sessionid === event.userid) 
-        //mediaElement.style.border = '3px solid red';
+    if (connection.sessionid === event.userid) 
+        mediaElement.style.border = '3px solid red';
     
     setTimeout(function() {
         mediaElement.media.play();

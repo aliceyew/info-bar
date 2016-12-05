@@ -141,6 +141,7 @@ document.getElementById('input-text-chat').onkeyup = function(e) {
     if (!this.value.length) return;
     chatname.name = document.getElementById('nameonchat').value;
     console.log(chatname.name);
+    console.log("is this going in?");
     var aftercname = ": ";
     var anothername = chatname.name.concat(aftercname);
     anothername = anothername.bold();
@@ -178,7 +179,7 @@ document.getElementById('btn-leave-room').onclick = function() {
     deleteRoomUrl();
 };
 // Text chat code
-document.getElementById('input-text-chat').onkeyup = function(e) {
+/*document.getElementById('input-text-chat').onkeyup = function(e) {
     if (e.keyCode != 13) return;
     // remove trailing/ leading whitespace
     this.value = this.value.replace(/^\s+|\s+$/g, '');
@@ -187,7 +188,7 @@ document.getElementById('input-text-chat').onkeyup = function(e) {
     appendDIV(this.value);
     this.value = '';
 };
-
+*/
 var chatContainer = document.querySelector('.chat-output');
 function appendDIV(event) {
     var div = document.createElement('div');

@@ -54,19 +54,21 @@ connection.onmessage = appendDIV;
 connection.onopen = function() {
     document.getElementById('input-text-chat').disabled = false;
     document.getElementById('btn-leave-room').disabled = false;
-    document.querySelector('h5').innerHTML = 'You are connected with: ' + connection.getAllParticipants().join(', ');
+    document.getElementById('nameonchat').disabled = false;
+    console.log("You are connected with: " + connection.getAllParticipants().join(', '));
 };
 
 connection.onclose = function() {
     if(connection.getAllParticipants().length) {
-        document.querySelector('h5').innerHTML = 'You are still connected with: ' + connection.getAllParticipants().join(', ');
+        console.log('You are still connected with: ' + connection.getAllParticipants().join(', '));
     } else {
-        document.querySelector('h5').innerHTML = 'Seems session has been closed or all participants left.';
+        console.log('Seems session has been closed or all participants left.');
     }
 };
 
 connection.onEntireSessionClosed = function(event) {
     document.getElementById('input-text-chat').disabled = true;
+    document.getElementById('nameonchat').disabled = true;
     document.getElementById('btn-leave-room').disabled = true;
     document.getElementById('btn-open-room').disabled = false;
     document.getElementById('btn-join-room').disabled = false;
@@ -76,9 +78,9 @@ connection.onEntireSessionClosed = function(event) {
     });
 
     if (connection.userid === event.userid) return;
-    document.querySelector('h1').innerHTML = 'Entire session has been closed by the moderator: ' + event.userid;
-
+    console.log('Entire session has been closed by the moderator: ' + event.userid);
     deleteRoomUrl();
+
 };
 connection.onUserIdAlreadyTaken = function(useridAlreadyTaken, yourNewUserId) {
     // seems room is already opened
@@ -89,6 +91,67 @@ function disableInputButtons() {
     document.getElementById('btn-join-room').disabled = true;
     document.getElementById('room-id').disabled = true;
 };
+
+document.getElementById('btn-leave-room').onclick = function() {
+    this.disabled = true;
+    if(connection.isInitiator) {
+        // use this method if you did NOT set "autoCloseEntireSession===true"
+        // for more info: https://github.com/muaz-khan/RTCMultiConnection#closeentiresession
+        connection.closeEntireSession(function() {
+            console.log('Entire session has been closed.');
+        });
+    }
+    else {
+        connection.leave();
+    }
+};
+// Name chat code
+var chatname = {
+    name: ""
+};
+
+document.getElementById('nameonchat').onkeyup = function(e) {
+    //console.log("Does this work?");
+    if (e.keyCode != 13 ) {
+        return;    
+    } 
+    // remove trailing/ leading whitespace
+    this.value = this.value.replace(/^\s+|\s+$/g, '');
+    if (!this.value.length) return;
+    chatname.name = this.value;
+    var afterchatname = ": ";
+    chatname.name = chatname.name.concat(afterchatname);
+    chatname.name = chatname.name.bold();
+    console.log(chatname.name);
+};
+// Text chat code
+document.getElementById('input-text-chat').onkeyup = function(e) {
+    if (e.keyCode != 13) return;
+    // remove trailing/ leading whitespace
+    this.value = this.value.replace(/^\s+|\s+$/g, '');
+    if (!this.value.length) return;
+    chatname.name = document.getElementById('nameonchat').value;
+    console.log(chatname.name);
+    var aftercname = ": ";
+    var anothername = chatname.name.concat(aftercname);
+    anothername = anothername.bold();
+    var ans = anothername.concat(this.value);
+    //var ans = chatname.name.concat(this.value);
+    connection.send(ans);
+    appendDIV(ans);
+    this.value = '';
+};
+var chatContainer = document.querySelector('.chat-output');
+chatContainer.scrollTop = 300 + 8;
+function appendDIV(event) {
+    var div = document.createElement('div');
+    div.innerHTML = event.data || event;
+    chatContainer.insertBefore(div, chatContainer.firstChild);
+    div.tabIndex = 0;
+    div.focus();
+    document.getElementById('input-text-chat').focus();
+    //document.getElementById('nameonchat').focus();
+}
 
 document.getElementById('btn-leave-room').onclick = function() {
     this.disabled = true;

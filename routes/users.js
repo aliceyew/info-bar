@@ -18,7 +18,8 @@ router.get('/login', function(req, res) {
 // Logout
 router.get('/logout', function(req, res) {
 	req.logout();
-	// TODO: Destroy session & delete cookies
+	req.session = null;
+	res.clearCookie('connect.sid');
 	return res.redirect('/dashboard');
 });
 

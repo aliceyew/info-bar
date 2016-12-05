@@ -24,9 +24,11 @@ router.get('/:company', function(req, res) {
 		}
 
 		if (req.isAuthenticated()) {
+			var isAuthorized = (req.user.username === companyName)
 			res.render('connect', { 
 				user: req.user.username,
 				company: company,
+				isAuthorized: isAuthorized,
 				success: true
 			});
 		} else {

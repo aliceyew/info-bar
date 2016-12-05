@@ -15,6 +15,7 @@ document.getElementById('btn-join-room').onclick = function() {
     disableInputButtons();
     connection.join(document.getElementById('room-id').value);
 }
+
 var connection = new RTCMultiConnection();
 connection.socketURL = '/';
 connection.socketMessageEvent = 'chat-test';
@@ -39,23 +40,31 @@ connection.onstream = function(event) {
         showonMouseEnter: false
     });
     connection.videosContainer.appendChild(mediaElement);
+
+    if (connection.sessionid === event.userid) 
+        mediaElement.style.border = '3px solid red';
+    
     setTimeout(function() {
         mediaElement.media.play();
     }, 5000);
     mediaElement.id = event.streamid;
 };
+
 connection.onstreamended = function(event) {
     var mediaElement = document.getElementById(event.streamid);
     if (mediaElement) {
         mediaElement.parentNode.removeChild(mediaElement);
     }
 };
+
 connection.onmessage = appendDIV;
 connection.onopen = function() {
     document.getElementById('input-text-chat').disabled = false;
     document.getElementById('btn-leave-room').disabled = false;
     document.getElementById('nameonchat').disabled = false;
     console.log("You are connected with: " + connection.getAllParticipants().join(', '));
+
+
 };
 
 connection.onclose = function() {

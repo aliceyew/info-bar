@@ -56,11 +56,11 @@
                     <center><img data-ng-src="[[u.imgsrc]]" width="330" height="240"></center>
                     <hr>
                     <center>
-                        <span class="btn-group" ng-if="u.roomLink !== undefined"> 
+                        <span class="btn-group" ng-if="u.roomUrl !== undefined"> 
                             <a ng-href="/connect/[[u.username]]" class="btn btn-default">Learn More</a>
-                            <a ng-href="[[u.roomLink]]" class="btn btn-success active">Online</a>
+                            <a ng-href="[[u.roomUrl]]" class="btn btn-success active">Online</a>
                         </span>
-                        <span class="btn-group" ng-if="u.roomLink == undefined">
+                        <span class="btn-group" ng-if="u.roomUrl == undefined">
                             <a ng-href="/connect/[[u.username]]" class="btn btn-default">Learn More</a>
                             <button class="btn btn-danger">Offline</button>
                         </span>

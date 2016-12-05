@@ -12,7 +12,6 @@ dashboardApp.controller('DashboardCtrl', ['$scope', '$http',
 
       function successCallback(response) {
         $scope.users = response.data.users;
-        console.log(response.data.users[0].roomLink);
       }
 
       function errorCallback(response) {

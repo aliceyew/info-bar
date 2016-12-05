@@ -1,21 +1,31 @@
  
-    video {
-        object-fit: fill;
-        width: 30%;
-    }
-    button,
-    input,
-    select {
-        font-weight: normal;
-        padding: 2px 4px;
-        text-decoration: none;
-        display: inline-block;
-        text-shadow: none;
-        font-size: 16px;
-        outline: none;
-    }
-    .make-center {
-        text-align: center;
-        padding: 5px 10px;
-    }
- 
+video {
+    object-fit: fill;
+    width: 50%;
+}
+button,
+input,
+select {
+    font-weight: normal;
+    padding: 2px 4px;
+    text-decoration: none;
+    display: inline-block;
+    text-shadow: none;
+    font-size: 16px;
+    outline: none;
+}
+.make-center {
+    text-align: center;
+    padding: 5px 10px;
+}
+#chat-container{
+    overflow: scroll;
+    text-align: left;
+    background:#fff;
+    border: 1px solid #ACD8F0;
+    width: 100%;
+    height: 200px;
+}
+#input-text-chat{
+    width: 80%;
+}

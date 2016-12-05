@@ -38,7 +38,7 @@
             {{#if company}}
             <h3>Company Details</h3>
             <h4 id="company-details">{{company.details}}</h4>
-            <h3>Broadcasting Time</h3>
+            <h3>Next Video Conference Time</h3>
             <h4 id="company-bctime">{{company.bctime}}</h4>
         </div>
     </div>
@@ -47,7 +47,8 @@
     <!-- End company profile -->
     <section class ="chat">
         <div class="make-center">
-            <input type="text" id="room-id" value="abcdef">
+            <!-- Room configurations -->
+            <input type="text" id="room-id" value="Enter room name here">
             {{#if isAuthorized}}
             <button class="btn btn-success" id="btn-open-room">Open Room</button>
             <button class="btn btn-success" id="btn-join-room" style="display: none;">Join Room </button>
@@ -55,22 +56,21 @@
             <button class="btn btn-success" id="btn-open-room" style="display: none;">Open Room</button>
             <button class="btn btn-success" id="btn-join-room" style="display: none;">Join Room </button>
             {{/if}}
-            <br>
-    <!--
-    <input type="text" id="input-text-chat" placeholder="Text Chat here" disabled>
-    <br><br>
-    <button id ="btn-leave-room" disabled>Leave or close the room</button>
--->
-            <div id="room-urls" style="text-align: center;display: none;background: #F1EDED;margin: 15px -10px;border: 1px solid rgb(189, 189, 189);border-left: 0;border-right: 0;"></div>
-        </div>
-        <div id ="chat-container">
-            <div id ="file-container"></div>
-            <div class="chat-output"></div>
-        </div>
-
-        <div id ="videos-container"></div>
-    </section>
-
+            <button class="btn btn-danger" id ="btn-leave-room" disabled>Leave or close the room</button>
+            <br><br><br>
+            <div id="room-urls" style="text-align: center;display: none;background: #F1EDED;margin: 15px -10px;border: 1px solid rgb(189, 189, 189);border-left: 0;border-right: 0;">
+            </div>
+            <!-- Chat box -->
+            <div>
+                <input type="text" id="nameonchat" placeholder="Enter name here" disabled>
+                <input type="text" id="input-text-chat" placeholder="Text Chat here" disabled>
+                <br><br>
+            </div>
+            <div id ="chat-container">
+                <div class="chat-output"></div>
+            </div>
+            <div id ="videos-container"></div>
+        </section>
     <!-- layout for html5 audio/video elements -->
     <script src ="https://cdn.webrtc-experiment.com/getMediaElement.js"></script>
     <script src="https://cdn.webrtc-experiment.com:443/FileBufferReader.js"></script>
@@ -80,8 +80,7 @@
         <br><br>
         <button class="btn btn-danger" id ="btn-leave-room" disabled>Leave or close the room</button>
     </center>
-    {{/if}}
-
+        {{/if}}
     <script type="text/javascript" src="/js/controllers/connect.js"></script>  
 
 </div>

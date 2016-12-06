@@ -1,14 +1,27 @@
-# Node.js Starter Overview
+#(i)nfoBar - <em>The window to your future workplace</em>
+##What is (i)nfoBar?
+(i)nfoBar is an <em>online professional networking platform</em> where jobseekers can view the live broadcasts of a list of companies. It was an idea executed by 3 young female Computer Scientists-in-learning for our Systems Programming Course (CS252) at Purdue University, West Lafayette.
 
-The Node.js Starter demonstrates a simple, reusable Node.js web application based on the Express framework.
+##Our Mission
+Our mission for this platform was to provide the opportunity for <em>borderless, intimate</em> professional networking between employers and prospective employees. This mission is addressed by our proudest feature - the **live chatrooms**!
 
-## Run the app locally
+#Features
+##Live Chatrooms
+Companies can **create live chatrooms** by going to their profile pages. One a room is created, the room initiator (highlighted in red) is free to share his/her stories with guests joining in on the conversation. Oh, and there's a **live chatbox** too!
 
-1. [Install Node.js][]
-2. Download and extract the starter code from the Bluemix UI
-3. cd into the app directory
-4. Run `npm install` to install the app's dependencies
-5. Run `npm start` to start the app
-6. Access the running app in a browser at http://localhost:6001
+##Broadcast Notifications
+When a company is holding a live broadcast, an **"Online"** button will appear on the company dashboard. Everyone is free to join the chatroom by clicking on the button.
 
-[Install Node.js]: https://nodejs.org/en/download/
+##User Profiling
+Companies are required to **register** at (i)nfoBar in order to begin hosting broadcasts. Account information is stored in MongoDB. Guests (jobseekers) are not required to register in order to use the platform.
+
+#Our technology
+##Stack
+**M**ongoDB **E**xpress.js **A**ngular.js **N**ode.js
+
+##Main APIs
+Chatroom: WebRTC
+User profiling: Mongoose, 
+
+##Cloud service
+IBM Bluemix

@@ -1,6 +1,6 @@
 #(i)nfoBar - <em>The window to your future workplace</em>
 ##What is (i)nfoBar?
-(i)nfoBar is an <em>online professional networking platform</em> where jobseekers can view the live broadcasts of a list of companies. It was an idea executed by 3 young female Computer Scientists-in-learning for our Systems Programming Course (CS252) at Purdue University, West Lafayette.
+(i)nfoBar is an <em>online professional networking platform</em> where jobseekers can view the live broadcasts of a list of companies. It was an idea executed by 3 young female Computer Scientists-in-learning for their Systems Programming Course (CS252) at Purdue University, West Lafayette.
 
 ![Dashboard](screenshots/dashboard_01.PNG)
 

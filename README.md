@@ -31,7 +31,6 @@ Companies are required to **register** at (i)nfoBar in order to begin hosting br
 
 ##Main APIs
 Chatroom: WebRTC
-User profiling: Mongoose, 
 
 ##Cloud service
 IBM Bluemix
